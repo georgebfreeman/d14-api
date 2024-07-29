@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="inputID" onkeyup="autoComplete(this.value)">
+    <ul id="result"></ul>
+    <script>
+      
+
+        function autoComplete(input) {
+            // Format the input, to be a case insensitive regExpression
+            var regExInput = new RegExp(input, "i");
+
+            // array of words that will be searched
+            var searchableTerms = ['apple', 'apple watch','apple macbook', 'apple macbook pro', 'iphone', 'iphone 12'];
+
+            // Filter/Save the terms that matches the input
+            var matchingTerms = searchableTerms.filter(term => term.match(regExInput));
+
+            var resultEL = document.getElementById("result"); // grab the list element from the DOM
+            var listItems = ""; //Create list variable
+            matchingTerms.forEach( word => listItems += `<li>${word}</li>`); //Loop thru the array of matching terms and add it to the list variable
+            resultEL.innerHTML = listItems; // Send the list of terms to the HTML DOM
+        };
+
+    </script>
+    
+</body>
+</html>

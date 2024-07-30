@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <table id="table"></table>
+    <script>
+        var userJSON =  
+        
+        var userArray = JSON.parse(userJSON); // parse the json and convert it to a regular array
+        var rows = ``; // create the table rows template literal variable
+        userArray.forEach(user => rows += // loop thru the user array and add it to rows: template literal variable
+        `<tr>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+            <td>${user.email}</td>
+            <td>${user.gender}</td>
+            <td>${user.jobTitle}</td>
+            <td>${user.company}</td>
+         </tr>`); // add each object property-value pair to a cell in each row
+         var tableEL = document.getElementById("table"); // define the table element
+         tableEL.innerHTML = rows; // send the rows of user data to the table element
+    </script>
+    
+</body>
+</html>

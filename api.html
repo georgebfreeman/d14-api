@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <input placeholder="Enter search term" onchange="search(this.value)"/>
+    <main id="output" class="flex flew-wrap"></main>
+    <script>
+        function search(searchWord) {
+            var nasaArray = [];
+            var card = ``;
+            var url = `https://images-api.nasa.gov/search?q=${searchWord}&page_size=6&media_type=image`;
+
+            fetch(url) // Get JSON data from NASA.gov API
+                .then(response => {return response.json();}) // Convert JSON into a regular object/array
+                .then(nasaData => {
+                    nasaArray = nasaData.collection.items; // Focus in on just the part of the data that we need
+                    nasaArray.forEach(item => card += // Loop thru the nasa array and add it to the card template literal variable
+                        `<div class="card card-compact m-4 w-96 bg-base-100 shadow-xl">
+                            <figure><img src="${item.links[0].href}" alt=/></figure>
+                            <div class="card-body">
+                                <h2 class="card-title">${item.data[0].title}</h2>
+                                <p>${item.data[0].description}</p>
+                            </div>
+                        </div>`); // add each object property-value pair to each card
+                    document.getElementById('output').innerHTML = card; // send the cards to the output/display HTML section
+                }) 
+        };
+    </script>
+    
+</body>
+</html>
